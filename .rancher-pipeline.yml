@@ -24,7 +24,7 @@ stages:
       dockerfilePath: ./buildpack/docker/Dockerfile
       buildContext: .
       tag: php-example:${CICD_EXECUTION_SEQUENCE}
-# - name: Deploy
-#   steps:
-#   - applyYamlConfig:
-#       path: ./deploy/deployment.yaml
+- name: Deploy
+  steps:
+  - applyYamlConfig:
+      path: ./buildpack/deployment/all.yaml
