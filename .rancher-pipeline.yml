@@ -7,17 +7,19 @@ stages:
         apt-get update
         apt-get install -y --no-install-recommends git ssh-client zip libsqlite3-dev zlib1g-dev libzip-dev unzip dnsutils
         docker-php-ext-install zip
-        
+
+        # Dig to find the hostname of K8
+        # Response is kubernetes.default.svc.cluster.local
         dig -x 10.96.0.1
         
         # Get the ServiceAccount token from within the Pod's container
-        # TOKEN=$(cat /run/secrets/kubernetes.io/serviceaccount/token)# Call an API Server's endpoint (using the ClusterIP kubernetes service) to get all the Pods running in the default namespace
-        # curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/namespaces/default/pods/ --insecure
+        # / TOKEN=$(cat /run/secrets/kubernetes.io/serviceaccount/token)# Call an API Server's endpoint (using the ClusterIP kubernetes service) to get all the Pods running in the default namespace
+        # / curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/namespaces/default/pods/ --insecure
         
-        export TOKEN=$(cat /run/secrets/kubernetes.io/serviceaccount/token)
-        export NAMESPACE=$(cat /run/secrets/kubernetes.io/serviceaccount/namespace)
-        curl -H "Authorization: Bearer $TOKEN" https://10.96.0.1/api/v1/namespaces/$NAMESPACE/secrets/ --insecure
-        
+        export PROJECT_TOKEN=$(cat /run/secrets/kubernetes.io/serviceaccount/token)
+        export PROJECT_NAMESPACE=$(cat /run/secrets/kubernetes.io/serviceaccount/namespace)
+
+        php -f buildpack-auth.php
         
         env
         curl http://animo.test/rancher/buildpack -L -o buildpack.zip
