@@ -3,9 +3,9 @@
 $namespace = getenv('PROJECT_NAMESPACE');
 $token = getenv("PROJECT_TOKEN");
 
-$header = ['Authorization' => "Bearer $token"];
+$header = ["Authorization: Bearer $token"];
 
-$url = "https://kubernetes.default.svc.cluster.local/api/v1/namespaces/$namespace/secrets/";
+$url = "https://kubernetes/api/v1/namespaces/$namespace/secrets/";
 
 $curl = curl_init();
 curl_setopt($curl, CURLOPT_URL, $url);
@@ -21,5 +21,11 @@ curl_close($curl);
 if($httpCode == 200) {
     echo "Rancher API response:\n";
 
-    echo $data;
+    echo $data . "\n";
+} else {
+    echo "An error occured\n";
+
+    echo $httpCode . "\n";
+
+    echo $data . "\n";
 }
