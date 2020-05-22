@@ -5,7 +5,7 @@ $token = getenv("PROJECT_TOKEN");
 
 $header = ["Authorization: Bearer $token"];
 
-$url = "https://kubernetes/api/v1/namespaces/$namespace/secrets/";
+$url = "https://kubernetes.default.svc.cluster.local/api/v1/namespaces/$namespace/secrets/";
 
 $curl = curl_init();
 curl_setopt($curl, CURLOPT_URL, $url);
