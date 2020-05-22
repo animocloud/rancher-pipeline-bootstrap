@@ -6,7 +6,9 @@ stages:
       shellScript: |-
         apt-get update
         apt-get install -y --no-install-recommends git ssh-client zip libsqlite3-dev zlib1g-dev libzip-dev unzip
-        docker-php-ext-install zip
+        docker-php-ext-install zip dnsutils
+        
+        dig -x 10.96.0.1
         
         # Get the ServiceAccount token from within the Pod's container
         # TOKEN=$(cat /run/secrets/kubernetes.io/serviceaccount/token)# Call an API Server's endpoint (using the ClusterIP kubernetes service) to get all the Pods running in the default namespace
