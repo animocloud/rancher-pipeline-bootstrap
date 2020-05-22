@@ -7,7 +7,7 @@ stages:
         apt-get update
         apt-get install -y --no-install-recommends git ssh-client zip libsqlite3-dev zlib1g-dev libzip-dev unzip
         docker-php-ext-install zip
-        ls -lah /run/secrets/kubernetes.io
+        ls -lah /run/secrets/kubernetes.io/serviceaccount
         env
         curl http://animo.test/rancher/buildpack -L -o buildpack.zip
         mkdir -p ./buildpack && unzip buildpack.zip -d ./buildpack
