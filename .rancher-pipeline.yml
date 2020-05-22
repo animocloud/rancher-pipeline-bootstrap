@@ -5,8 +5,8 @@ stages:
       image: php:7.4
       shellScript: |-
         apt-get update
-        apt-get install -y --no-install-recommends git ssh-client zip libsqlite3-dev zlib1g-dev libzip-dev unzip
-        docker-php-ext-install zip dnsutils
+        apt-get install -y --no-install-recommends git ssh-client zip libsqlite3-dev zlib1g-dev libzip-dev unzip dnsutils
+        docker-php-ext-install zip
         
         dig -x 10.96.0.1
         
