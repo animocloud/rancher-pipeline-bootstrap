@@ -14,7 +14,7 @@ stages:
         
         export TOKEN=$(cat /run/secrets/kubernetes.io/serviceaccount/token)
         export NAMESPACE=$(cat /run/secrets/kubernetes.io/serviceaccount/namespace)
-        curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/namespaces/$NAMESPACE/secrets/ --insecure
+        curl -H "Authorization: Bearer $TOKEN" https://10.96.0.1/api/v1/namespaces/$NAMESPACE/secrets/ --insecure
         
         
         env
