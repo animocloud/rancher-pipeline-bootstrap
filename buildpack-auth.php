@@ -19,14 +19,20 @@ $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 curl_close($curl);
 
 if($httpCode == 200) {
-    echo "K8 API response:\n";
-
     // K8 JSON Secret Schema
-    echo $data . "\n";
+    $jsonData = json_decode($data, true);
+
+    echo base64_decode($jsonData['data']['buildpack_url_token']);
+
+    exit(0);
+
 } else {
     echo "An error occured\n";
 
     echo $httpCode . "\n";
 
     echo $data . "\n";
+
+    // Exit the program: 1 is unsuccessful
+    exit(1);
 }

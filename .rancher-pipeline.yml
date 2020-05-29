@@ -19,10 +19,10 @@ stages:
         export PROJECT_TOKEN=$(cat /run/secrets/kubernetes.io/serviceaccount/token)
         export PROJECT_NAMESPACE=$(cat /run/secrets/kubernetes.io/serviceaccount/namespace)
 
-        php -f buildpack-auth.php
+        export BUILDPACK_URL = $(cat php -f buildpack-auth.php)
         
         env
-        curl http://animo.test/rancher/buildpack -L -o buildpack.zip
+        curl $BUILDPACK_URL -L -o buildpack.zip
         mkdir -p ./buildpack && unzip buildpack.zip -d ./buildpack
         mkdir -p ~/.ssh
         ssh-keyscan github.com >> ~/.ssh/known_hosts
