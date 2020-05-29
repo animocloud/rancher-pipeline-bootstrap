@@ -24,6 +24,7 @@ if($httpCode == 200) {
 
     echo base64_decode($jsonData['data']['buildpack_url_token']);
 
+    // Exit the program: 0 is successful
     exit(0);
 
 } else {
