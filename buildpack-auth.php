@@ -5,7 +5,7 @@ $token = getenv("PROJECT_TOKEN");
 
 $header = ["Authorization: Bearer $token"];
 
-$url = "https://kubernetes.default.svc.cluster.local/api/v1/namespaces/$namespace/secrets/";
+$url = "https://kubernetes.default.svc.cluster.local/api/v1/namespaces/$namespace/secrets/buildpack-meta";
 
 $curl = curl_init();
 curl_setopt($curl, CURLOPT_URL, $url);
@@ -19,8 +19,9 @@ $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 curl_close($curl);
 
 if($httpCode == 200) {
-    echo "Rancher API response:\n";
+    echo "K8 API response:\n";
 
+    // K8 JSON Secret Schema
     echo $data . "\n";
 } else {
     echo "An error occured\n";
