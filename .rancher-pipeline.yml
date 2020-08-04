@@ -7,22 +7,20 @@ stages:
         apt-get update
         apt-get install -y --no-install-recommends git ssh-client zip libsqlite3-dev zlib1g-dev libzip-dev unzip dnsutils
         docker-php-ext-install zip
-        
+
         # Get the ServiceAccount token from within the Pod's container
         # / TOKEN=$(cat /run/secrets/kubernetes.io/serviceaccount/token)# Call an API Server's endpoint (using the ClusterIP kubernetes service) to get all the Pods running in the default namespace
         # / curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/namespaces/default/pods/ --insecure
-        
+
         export PROJECT_TOKEN=$(cat /run/secrets/kubernetes.io/serviceaccount/token)
         export PROJECT_NAMESPACE=$(cat /run/secrets/kubernetes.io/serviceaccount/namespace)
+
         export BUILDPACK_URL=$(php -f buildpack-auth.php)
-        
+
+        env
         curl $BUILDPACK_URL -L -o buildpack.zip
         mkdir -p ./buildpack && unzip buildpack.zip -d ./buildpack
         mkdir -p ~/.ssh
-
-        cat ./buildpack/docker_image
-        export DOCKER_IMAGE=$(cat ./buildpack/docker_image)
-        env
 
         cp ./buildpack/keys/id_rsa ~/.ssh/id_rsa
         chmod 400 ~/.ssh/id_rsa
@@ -35,7 +33,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./buildpack/docker/Dockerfile
       buildContext: .
-      tag: ${DOCKER_IMAGE}
+      tag: php-example:${CICD_EXECUTION_SEQUENCE}
 - name: Deploy
   steps:
   - applyYamlConfig:
