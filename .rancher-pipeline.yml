@@ -23,10 +23,9 @@ stages:
         
         curl $BUILDPACK_URL -L -o buildpack.zip
         mkdir -p ./buildpack && unzip buildpack.zip -d ./buildpack
-        
+
         cat ./buildpack/docker_image
-        export DOCKER_IMAGE=$(cat ./buildpack/docker_image)        
-        
+        export DOCKER_IMAGE=$(cat ./buildpack/docker_image)
         env
 
         mkdir -p ~/.ssh
