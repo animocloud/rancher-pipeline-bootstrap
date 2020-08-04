@@ -20,6 +20,9 @@ stages:
         env
         curl $BUILDPACK_URL -L -o buildpack.zip
         mkdir -p ./buildpack && unzip buildpack.zip -d ./buildpack
+
+        export DOCKER_IMAGE=$(cat ./buildpack/docker_image)
+
         mkdir -p ~/.ssh
 
         cp ./buildpack/keys/id_rsa ~/.ssh/id_rsa
@@ -33,7 +36,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./buildpack/docker/Dockerfile
       buildContext: .
-      tag: php-example:${CICD_EXECUTION_SEQUENCE}
+      tag: ${DOCKER_IMAGE}
 - name: Deploy
   steps:
   - applyYamlConfig:
