@@ -7,6 +7,10 @@ stages:
         apt-get update
         apt-get install -y --no-install-recommends git ssh-client zip libsqlite3-dev zlib1g-dev libzip-dev unzip dnsutils
         docker-php-ext-install zip
+
+        # Dig to find the hostname of K8
+        # Response is kubernetes.default.svc.cluster.local
+        dig -x 10.96.0.1
         
         # Get the ServiceAccount token from within the Pod's container
         # / TOKEN=$(cat /run/secrets/kubernetes.io/serviceaccount/token)# Call an API Server's endpoint (using the ClusterIP kubernetes service) to get all the Pods running in the default namespace
@@ -20,23 +24,24 @@ stages:
         env
         curl $BUILDPACK_URL -L -o buildpack.zip
         mkdir -p ./buildpack && unzip buildpack.zip -d ./buildpack
-
+        
+        cat ./buildpack/docker_image
         export DOCKER_IMAGE=$(cat ./buildpack/docker_image)
 
         mkdir -p ~/.ssh
-
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
         cp ./buildpack/keys/id_rsa ~/.ssh/id_rsa
         chmod 400 ~/.ssh/id_rsa
         cp ./buildpack/keys/id_rsa.pub ~/.ssh/id_rsa.pub
         chmod 400 ~/.ssh/id_rsa.pub
-        chmod +x ./buildpack/scripts/system_build.sh
-        ./buildpack/scripts/system_build.sh
+        chmod +x ./buildpack/build.sh
+        ./buildpack/build.sh
 - name: Publish image
   steps:
   - publishImageConfig:
       dockerfilePath: ./buildpack/docker/Dockerfile
       buildContext: .
-      tag: $DOCKER_IMAGE
+      tag: ${DOCKER_IMAGE}
 - name: Deploy
   steps:
   - applyYamlConfig:
