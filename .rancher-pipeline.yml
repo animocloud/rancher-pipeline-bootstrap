@@ -36,7 +36,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./buildpack/docker/Dockerfile
       buildContext: .
-      tag: ${DOCKER_IMAGE}
+      tag: $DOCKER_IMAGE
 - name: Deploy
   steps:
   - applyYamlConfig:
