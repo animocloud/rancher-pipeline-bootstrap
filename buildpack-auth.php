@@ -5,7 +5,9 @@ $token = getenv("PROJECT_TOKEN");
 
 $header = ["Authorization: Bearer $token"];
 
-$url = "https://kubernetes.default.svc.cluster.local/api/v1/namespaces/$namespace/secrets/buildpack-meta";
+$kubernetesHost = getenv('KUBERNETES_SERVICE_HOST');
+$kubernetesPort = getenv('KUBERNETES_SERVICE_PORT_HTTPS');
+$url = "https://$kubernetesHost:$kubernetesPort/api/v1/namespaces/$namespace/secrets/buildpack-meta";
 
 $curl = curl_init();
 curl_setopt($curl, CURLOPT_URL, $url);
