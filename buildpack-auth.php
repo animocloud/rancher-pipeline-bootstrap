@@ -7,7 +7,8 @@ $header = ["Authorization: Bearer $token"];
 
 $kubernetesHost = getenv('KUBERNETES_SERVICE_HOST');
 $kubernetesPort = getenv('KUBERNETES_SERVICE_PORT_HTTPS');
-$url = "https://$kubernetesHost:$kubernetesPort/api/v1/namespaces/$namespace/secrets/buildpack-meta";
+$pipelineID = getenv('CICD_PIPELINE_ID');
+$url = "https://$kubernetesHost:$kubernetesPort/api/v1/namespaces/$namespace/secrets/buildpack-meta-$pipelineID";
 
 $curl = curl_init();
 curl_setopt($curl, CURLOPT_URL, $url);
