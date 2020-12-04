@@ -37,4 +37,3 @@ stages:
       shellScript: |-
         chmod +x ./buildpack/scripts/notify.sh
         ./buildpack/scripts/notify.sh
-        curl -X POST -H "Content-Type: application/json" -d '{"name": "John"}' https://hookb.in/8PG8DYQBRQFBWWYjDLar
