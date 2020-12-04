@@ -2,7 +2,7 @@ stages:
 - name: Build
   steps:
   - runScriptConfig:
-      image: php:7.4
+      image: registry.gitlab.com/animocloud/rancher-pipeline-bootstrap:latest
       shellScript: |-
         apt-get update
         apt-get install -y --no-install-recommends git ssh-client zip libsqlite3-dev zlib1g-dev libzip-dev unzip dnsutils
@@ -37,6 +37,6 @@ stages:
 - name: Notifications
   steps:
   - runScriptConfig:
-    image: php:7.4
+    image: registry.gitlab.com/animocloud/rancher-pipeline-bootstrap:latest
     shellScript: |-
       php -v
