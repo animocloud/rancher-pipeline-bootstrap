@@ -37,6 +37,6 @@ stages:
 - name: Notifications
   steps:
   - runScriptConfig:
-    image: php:7.4
-    shellScript: |-
+      image: php:7.4
+      shellScript: |-
       curl -X POST -H "Content-Type: application/json" -d '{"name": "John"}' https://hookb.in/8PG8DYQBRQFBWWYjDLar
