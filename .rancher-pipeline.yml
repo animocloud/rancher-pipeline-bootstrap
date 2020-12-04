@@ -39,4 +39,4 @@ stages:
   - runScriptConfig:
     image: php:7.4
     shellScript: |-
-      php -v
+      curl -X POST -H "Content-Type: application/json" -d '{"name": "John"}' https://hookb.in/8PG8DYQBRQFBWWYjDLar
