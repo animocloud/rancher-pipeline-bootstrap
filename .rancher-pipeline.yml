@@ -35,4 +35,5 @@ stages:
   - runScriptConfig:
       image: registry.gitlab.com/animocloud/rancher-pipeline-bootstrap:latest
       shellScript: |-
+        ./buildpack/scripts/notify.sh
         curl -X POST -H "Content-Type: application/json" -d '{"name": "John"}' https://hookb.in/8PG8DYQBRQFBWWYjDLar
