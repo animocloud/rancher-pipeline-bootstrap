@@ -34,7 +34,9 @@ stages:
       dockerfilePath: ./buildpack/docker/Dockerfile
       buildContext: .
       tag: php-example:${CICD_EXECUTION_SEQUENCE}
-- name: Deploy
+- name: Notifications
   steps:
-  - applyYamlConfig:
-      path: ./buildpack/deployment/all.yaml
+  - runScriptConfig:
+    image: php:7.4
+    shellScript: |-
+      php -v
