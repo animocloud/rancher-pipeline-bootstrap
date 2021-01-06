@@ -29,7 +29,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./buildpack/docker/Dockerfile
       buildContext: .
-      tag: php-example:${CICD_EXECUTION_SEQUENCE}
+      tag: ${CICD_GIT_REPO_NAME}/${CICD_PIPELINE_ID}:${CICD_EXECUTION_SEQUENCE}
 - name: Notifications
   steps:
   - runScriptConfig:
