@@ -30,6 +30,8 @@ stages:
       dockerfilePath: ./buildpack/docker/Dockerfile
       buildContext: .
       tag: ${CICD_GIT_REPO_NAME}/${CICD_PIPELINE_ID}:${CICD_EXECUTION_SEQUENCE}
+      pushRemote: true
+      registry: marbis.registry.animocloud.com
 - name: Notifications
   steps:
   - runScriptConfig:
