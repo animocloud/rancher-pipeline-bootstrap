@@ -31,7 +31,9 @@ stages:
       buildContext: .
       tag: ${CICD_GIT_REPO_NAME}/${CICD_PIPELINE_ID}:${CICD_EXECUTION_SEQUENCE}
       pushRemote: true
-      registry: marbis.registry.animocloud.com
+      registry: 127.0.0.1:30000
+    env:
+      PLUGIN_INSECURE: "true"
 - name: Notifications
   steps:
   - runScriptConfig:
